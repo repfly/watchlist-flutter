@@ -6,8 +6,8 @@ import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 
 import 'package:flutter/material.dart';
-import 'package:watchlist/modules/home/home.dart';
 import 'package:watchlist/modules/register/register.dart';
+import 'package:watchlist/modules/search_view/search_movie.dart';
 import 'package:watchlist/widgets/movie_detail/movie_detail.dart';
 
 import 'login.dart';
@@ -51,7 +51,7 @@ abstract class LoginViewModel extends State<Login> with CacheManager {
 
   void _navigateToHome() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => Home()));
+        .push(MaterialPageRoute(builder: (context) => SearchMovie()));
   }
 
 }

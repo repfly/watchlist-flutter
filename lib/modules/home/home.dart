@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
 
-import 'home_view.dart';
+import 'package:flutter/material.dart';
+import 'package:watchlist/modules/home/home_view.dart';
 
 class Home extends StatefulWidget {
 
   @override
-  HomeView createState() => HomeView();
+  HomeView createState() => new HomeView();
 }
