@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/core/service/auth/auth_service.dart';
 import 'package:watchlist/core/service/auth/model/register_request.dart';
+import 'package:watchlist/modules/home/home.dart';
 import 'package:watchlist/modules/login/login.dart';
 import 'package:watchlist/modules/register/register.dart';
-import 'package:watchlist/modules/search_view/search_movie.dart';
 import 'package:watchlist/widgets/alert/toast_alert.dart';
 
 abstract class RegisterViewModel extends State<Register> {
@@ -20,7 +20,7 @@ abstract class RegisterViewModel extends State<Register> {
 
   void navigateToHome() {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => SearchMovie()));
+        .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
   }
 
   Future<void> validateUserInfo() async {

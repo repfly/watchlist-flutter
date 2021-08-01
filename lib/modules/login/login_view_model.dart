@@ -3,14 +3,13 @@ import 'package:watchlist/core/service/auth/auth_service.dart';
 import 'package:watchlist/core/service/auth/model/login_request.dart';
 import 'package:watchlist/core/service/auth/model/login_response.dart';
 import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
-import 'package:watchlist/core/service/movie/movie_service.dart';
+import 'package:watchlist/modules/home/home.dart';
+import 'package:watchlist/modules/register/register.dart';
+import 'login.dart';
 
 import 'package:flutter/material.dart';
-import 'package:watchlist/modules/register/register.dart';
-import 'package:watchlist/modules/search_view/search_movie.dart';
-import 'package:watchlist/widgets/movie_detail/movie_detail.dart';
 
-import 'login.dart';
+
 
 abstract class LoginViewModel extends State<Login> with CacheManager {
   bool wrongCredentials = false;
@@ -20,9 +19,8 @@ abstract class LoginViewModel extends State<Login> with CacheManager {
   late final MovieResponse movie;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-
   }
 
   Future<void> fetchLogin(String username, String password) async {
@@ -33,17 +31,12 @@ abstract class LoginViewModel extends State<Login> with CacheManager {
       wrongCredentials = true;
     }
     if (response.type == LoginResponseType.SUCCESS) {
-      await saveToken(response.token);
+      await saveToken(response.token!);
       _navigateToHome();
     }
     setState(() {});
   }
 
-  void testMethod(String movieid) async {
-    var movie = await MovieService.shared.fetchMovieByIMDBId(movieid);
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => MovieDetail(movie)));
-  }
   void navigateToRegister() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => Register()));
@@ -51,7 +44,6 @@ abstract class LoginViewModel extends State<Login> with CacheManager {
 
   void _navigateToHome() {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SearchMovie()));
+        .pushReplacement(MaterialPageRoute(builder: (context) => Home()));
   }
-
 }

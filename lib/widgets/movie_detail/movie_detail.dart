@@ -12,7 +12,7 @@ class MovieDetail extends StatelessWidget {
     return Scaffold(
       body: Stack(fit: StackFit.expand, children: [
         Scaffold(
-          appBar: new AppBar(
+          appBar: AppBar(
             leading: BackButton(),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
@@ -20,7 +20,7 @@ class MovieDetail extends StatelessWidget {
           extendBodyBehindAppBar: true,
           body: SingleChildScrollView(
             child: Container(
-              margin: const EdgeInsets.all(20.0),
+              margin: EdgeInsets.all(20.0),
               child: Column(
                 children: <Widget>[
                   Container(
@@ -42,7 +42,7 @@ class MovieDetail extends StatelessWidget {
                         ]),
                   ),
                   Container(
-                    margin: const EdgeInsets.symmetric(
+                    margin: EdgeInsets.symmetric(
                         vertical: 20.0, horizontal: 0.0),
                     child: Row(
                       children: <Widget>[
@@ -50,16 +50,14 @@ class MovieDetail extends StatelessWidget {
                             child: Text(
                           movie.title,
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 30.0,
-                              fontFamily: 'Arvo'),
+                            fontSize: 30.0,
+                          ),
                         )),
                         Text(
                           movie.imdbRating,
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20.0,
-                              fontFamily: 'Arvo'),
+                            fontSize: 20.0,
+                          ),
                         )
                       ],
                     ),
@@ -71,7 +69,7 @@ class MovieDetail extends StatelessWidget {
                   Row(
                     children: [Text("Genre: "), Text(movie.genre)],
                   ),
-                  Padding(padding: const EdgeInsets.all(10.0)),
+                  Padding(padding: EdgeInsets.all(10.0)),
                   Row(
                     children: <Widget>[
                       Expanded(
@@ -81,10 +79,7 @@ class MovieDetail extends StatelessWidget {
                         alignment: Alignment.center,
                         child: Text(
                           'Add to your list',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontFamily: 'Arvo',
-                              fontSize: 20.0),
+                          style: TextStyle(color: Colors.black, fontSize: 20.0),
                         ),
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10.0),

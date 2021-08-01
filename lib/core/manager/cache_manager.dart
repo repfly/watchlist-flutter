@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:watchlist/core/service/me/model/me_response.dart';
 
 class CacheManager {
   Future<bool> saveToken(String token) async {

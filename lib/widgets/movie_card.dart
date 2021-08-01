@@ -2,71 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
 
-import 'home_view_model.dart';
+import 'movie_detail/movie_detail.dart';
 
-class HomeView extends HomeViewModel {
+class MovieCard extends StatelessWidget {
+  final MovieResponse movie;
+
+  MovieCard(this.movie);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Watchlist"),
-        actions: [
-          InkWell(
-            child: Icon(CupertinoIcons.profile_circled),
-            onTap: () {
-              navigateToProfile();
-            },
-          ),
-          SizedBox(
-            width: 10,
-          )
-        ],
-      ),
-      body: pageLoaded
-          ? SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      "Top picks for you",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  ),
-                  ListView.builder(
-                      itemCount: movies.length,
-                      physics: PageScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return topPicksCard(movies[index]);
-                      })
-                ],
-              ),
-            )
-          : loadingView(),
-    );
-  }
-
-  Widget loadingView() {
-    return Center(
-      child: Column(
-        children: [
-          CircularProgressIndicator(),
-          Text(
-            "Loading...",
-            style: TextStyle(fontSize: 30),
-          )
-        ],
-      ),
-    );
-  }
-
-  InkWell topPicksCard(MovieResponse movie) {
     return InkWell(
       onTap: () {
-        navigateToMovieDetail(movie);
+        navigateToMovieDetail(movie, context);
       },
       child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
@@ -130,5 +77,10 @@ class HomeView extends HomeViewModel {
             ),
           )),
     );
+  }
+
+  void navigateToMovieDetail(MovieResponse movie, BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => MovieDetail(movie)));
   }
 }

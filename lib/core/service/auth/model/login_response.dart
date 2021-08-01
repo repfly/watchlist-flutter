@@ -17,7 +17,7 @@ class LoginResponse {
   });
 
   LoginResponseType type;
-  String token;
+  String? token;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) => LoginResponse(
     type: EnumToString.fromString(LoginResponseType.values, json["type"])!,
