@@ -28,7 +28,14 @@ class ProfileView extends ProfileViewModel {
           ]))),
       extendBodyBehindAppBar: true,
       body: SafeArea(
-        child: Column(children: [userInfo()]),
+        child: Column(children: [
+
+          userInfo(),
+          Spacer(),
+          Positioned(child: ElevatedButton(onPressed: () {
+            //todo create list
+          }, child: Text("Create new list"),))
+        ]),
       ),
     );
   }
@@ -41,12 +48,11 @@ class ProfileView extends ProfileViewModel {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              'You have ${userLists.length} watchlists',
+              'You have ${userLists.length} watchlist',
               style: TextStyle(fontSize: 20),
             ),
           ),
-          watchlistBuilder()
-        ],
+          watchlistBuilder()],
       ),
     );
   }
@@ -96,7 +102,7 @@ class ProfileView extends ProfileViewModel {
                   InkWell(
                     child: Icon(Icons.edit),
                     onTap: () {
-                      //TODO EDIT WATCHLIST
+                      navigateToListEdit(list);
                     },
                   )
                 ],

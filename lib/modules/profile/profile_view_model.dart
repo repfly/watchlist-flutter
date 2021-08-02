@@ -8,6 +8,7 @@ import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 import 'package:watchlist/modules/login/login.dart';
 import 'package:watchlist/modules/profile/profile.dart';
+import 'package:watchlist/widgets/edit_list/edit_list.dart';
 import 'package:watchlist/widgets/list_detail/list_detail.dart';
 
 abstract class ProfileViewModel extends State<Profile> with CacheManager {
@@ -35,6 +36,11 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
   navigateToListDetail(ListResponse list) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => ListDetail(list)));
+  }
+
+  navigateToListEdit(ListResponse list) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => EditList(list)));
   }
   /*fetchMoviesFromList(ListResponse list) async {
     List<MovieResponse> tempArr = [];

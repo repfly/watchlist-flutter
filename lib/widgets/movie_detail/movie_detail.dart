@@ -42,8 +42,8 @@ class MovieDetail extends StatelessWidget {
                         ]),
                   ),
                   Container(
-                    margin: EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 0.0),
+                    margin:
+                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 0.0),
                     child: Row(
                       children: <Widget>[
                         Expanded(

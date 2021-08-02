@@ -16,7 +16,7 @@ class ErrorAlert {
               margin: EdgeInsets.all(8),
               borderRadius: BorderRadius.all(Radius.circular(8)),
               controller: controller,
-              position: FlashPosition.top,
+              position: FlashPosition.bottom,
               backgroundColor: isAlert ? Colors.redAccent : Colors.greenAccent,
               child: FlashBar(
                   content: Text(
