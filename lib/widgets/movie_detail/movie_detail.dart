@@ -70,23 +70,23 @@ class MovieDetail extends StatelessWidget {
                     children: [Text("Genre: "), Text(movie.genre)],
                   ),
                   Padding(padding: EdgeInsets.all(10.0)),
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                          child: Container(
-                        width: 150.0,
-                        height: 60.0,
-                        alignment: Alignment.center,
-                        child: Text(
-                          'Add to your list',
-                          style: TextStyle(color: Colors.black, fontSize: 20.0),
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10.0),
-                            color: Colors.white54),
-                      )),
-                    ],
-                  ),
+                  // Row(
+                  //   children: <Widget>[
+                  //     Expanded(
+                  //         child: Container(
+                  //       width: 150.0,
+                  //       height: 60.0,
+                  //       alignment: Alignment.center,
+                  //       child: Text(
+                  //         'Add to your list',
+                  //         style: TextStyle(color: Colors.black, fontSize: 20.0),
+                  //       ),
+                  //       decoration: BoxDecoration(
+                  //           borderRadius: BorderRadius.circular(10.0),
+                  //           color: Colors.white54),
+                  //     )),
+                  //   ],
+                  // ),
                 ],
               ),
             ),
