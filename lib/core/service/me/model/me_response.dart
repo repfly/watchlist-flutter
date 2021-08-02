@@ -21,7 +21,7 @@ class MeResponse {
   String username;
   String? firstName;
   String? lastName;
-  List<String> userLists;
+  List<String>? userLists;
 
   factory MeResponse.fromJson(Map<String, dynamic> json) => MeResponse(
     email: json["email"] == null ? null : json["email"],
@@ -36,6 +36,6 @@ class MeResponse {
     "username": username == null ? null : username,
     "firstName": firstName == null ? null : firstName,
     "lastName": lastName == null ? null : lastName,
-    "userLists": userLists == null ? null : List<dynamic>.from(userLists.map((x) => x)),
+    "userLists": userLists == null ? null : List<dynamic>.from(userLists!.map((x) => x)),
   };
 }

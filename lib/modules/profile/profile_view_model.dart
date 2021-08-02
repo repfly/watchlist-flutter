@@ -8,6 +8,8 @@ import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 import 'package:watchlist/modules/login/login.dart';
 import 'package:watchlist/modules/profile/profile.dart';
+import 'package:watchlist/modules/search/search_movie.dart';
+import 'package:watchlist/widgets/create_list/create_list.dart';
 import 'package:watchlist/widgets/edit_list/edit_list.dart';
 import 'package:watchlist/widgets/list_detail/list_detail.dart';
 
@@ -16,6 +18,7 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
       new MeResponse(email: "email", username: "username", userLists: []);
   late List<ListResponse> userLists = [];
   bool pageLoading = true;
+  bool isMoviesNull = true;
 
   @override
   initState() {
@@ -26,7 +29,12 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
   initProfilePage() async {
     List<ListResponse> tempList = [];
     user = await MeService.shared.fetchUser();
-    for (String list in user.userLists) {
+    if(user.userLists == null){
+      userLists = tempList;
+      setState(() {});
+      return;
+    }
+    for (String list in user.userLists!) {
       tempList.add(await ListService.shared.fetchListById(list));
     }
     userLists = tempList;
@@ -35,12 +43,17 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
 
   navigateToListDetail(ListResponse list) {
     Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => ListDetail(list)));
+        .push(MaterialPageRoute(builder: (context) => SearchMovie(list)));
   }
 
   navigateToListEdit(ListResponse list) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => EditList(list)));
+  }
+
+  navigateToCreateList() {
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => CreateList()));
   }
   /*fetchMoviesFromList(ListResponse list) async {
     List<MovieResponse> tempArr = [];

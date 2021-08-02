@@ -33,13 +33,12 @@ class EditListView extends EditListViewModel {
                   },
                   child: Text("Save")),
               Spacer(),
-              Positioned(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      deleteList(list.listId);
-                    },
+              ElevatedButton(
+                onPressed: () {
+                  deleteList(list.listId);
+                },
                 child: Text('Delete this list'),
-              ))
+              )
             ],
           ),
         ),

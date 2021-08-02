@@ -11,6 +11,13 @@ class ListDetailView extends ListDetailViewModel {
     return Scaffold(
       appBar: AppBar(
         title: Text(list.listTitle),
+        actions: [
+          InkWell(child: Icon(CupertinoIcons.add),
+          onTap: () {
+            navigateToAddMovie();
+          },),
+          SizedBox(width: 10,)
+        ],
       ),
       body: movieListBuilder(),
     );

@@ -28,14 +28,14 @@ class ProfileView extends ProfileViewModel {
           ]))),
       extendBodyBehindAppBar: true,
       body: SafeArea(
-        child: Column(children: [
-
-          userInfo(),
-          Spacer(),
-          Positioned(child: ElevatedButton(onPressed: () {
-            //todo create list
-          }, child: Text("Create new list"),))
-        ]),
+        child: SingleChildScrollView(
+          child: Column(children: [
+            userInfo(),
+            ElevatedButton(onPressed: () {
+              navigateToCreateList();
+            }, child: Text("Create new list"),)
+          ]),
+        ),
       ),
     );
   }
@@ -91,7 +91,7 @@ class ProfileView extends ProfileViewModel {
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'With ${list.movies.length} movies',
+                            'With ${list.movies?.length ?? "none"} movies',
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                           ),

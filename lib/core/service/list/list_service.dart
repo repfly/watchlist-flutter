@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:watchlist/core/manager/cache_manager.dart';
 import 'package:watchlist/core/manager/network_manager.dart';
 import 'package:watchlist/core/service/list/model/list_response.dart';
@@ -17,6 +18,8 @@ abstract class IListService {
   Future<void> updateListTitleById(UpdateListTitleRequest request);
 
   Future<void> deleteList(String listId);
+
+  Future<void> addMovieToList(String listId, String imdbId);
 }
 
 class ListService extends IListService with CacheManager {
@@ -69,6 +72,22 @@ class ListService extends IListService with CacheManager {
             headers: {HttpHeaders.authorizationHeader: 'Bearer $token'}));
     if (response.statusCode != 200) {
       throw "Delete list error";
+    }
+  }
+
+  @override
+  Future<void> addMovieToList(String listId, String imdbId) async {
+    var token = await getToken();
+    var data = {
+      "listId": listId,
+      "imdbId": imdbId
+    };
+    
+    var response = await _dio.post('$_path/add/movie',data: data, options: Options(headers: {
+      HttpHeaders.authorizationHeader: 'Bearer $token'
+    }));
+    if (response.statusCode != 200) {
+      throw "Add movie to list error";
     }
   }
 }
