@@ -1,5 +1,5 @@
 # Watchlist
-An application to create and edit your movie watchlsit.
+An application to create and edit your movie watchlsit. Some views created with rush, so they might not be ideal. But it works. For now.
 
 # Used Dependencies
 - cupertino_icons: ^1.0.2
