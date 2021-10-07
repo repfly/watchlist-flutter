@@ -61,8 +61,7 @@ class RegisterView extends RegisterViewModel {
                   alignment: Alignment.center,
                   child: ElevatedButton(
                       onPressed: () async {
-                        //await validateUserInfo();
-                        navigateToHome();
+                        await validateUserInfo();
                       },
                       child: Text("signup")))
             ],

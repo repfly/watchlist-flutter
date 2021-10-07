@@ -6,65 +6,70 @@ class ProfileView extends ProfileViewModel {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          actions: [
-            InkWell(
-              child: Icon(Icons.logout_rounded),
-              onTap: () {
-                logOut();
-              },
+        extendBodyBehindAppBar: true,
+        body: CustomScrollView(
+          controller: hideButtonController,
+          shrinkWrap: true,
+          slivers: [
+            new SliverAppBar(
+              title:
+                  Text('There are ${user.userLists!.length.toString()} lists'),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: InkWell(
+                    child: Icon(Icons.logout_rounded),
+                    onTap: () {
+                      logOut();
+                    },
+                  ),
+                ),
+              ],
             ),
-            SizedBox(
-              width: 10,
-            )
+            watchlistBuilder()
           ],
-          title: RichText(
-              text: TextSpan(children: [
-            TextSpan(
-                text: "Welcome ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-            TextSpan(text: '${user.username}!', style: TextStyle(fontSize: 20))
-          ]))),
-      extendBodyBehindAppBar: true,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(children: [
-            userInfo(),
-            ElevatedButton(onPressed: () {
-              navigateToCreateList();
-            }, child: Text("Create new list"),)
-          ]),
+        ),
+        floatingActionButton: createListButton());
+  }
+
+  Widget userInfo() {
+    return Text(
+      'You have ${userLists.length} watchlist',
+      style: TextStyle(fontSize: 20),
+    );
+  }
+
+  Visibility createListButton() {
+    return Visibility(
+      visible: isCreateButtonVisible,
+      child: new FloatingActionButton(
+        onPressed: () {
+          navigateToCreateList();
+        },
+        tooltip: 'Create',
+        child: new Icon(Icons.add),
+      ),
+    );
+  }
+
+  SliverPadding watchlistBuilder() {
+    return new SliverPadding(
+      padding: EdgeInsets.all(20),
+      sliver: SliverList(
+        delegate: SliverChildBuilderDelegate(
+          (context, index) {
+            return watchListCard(userLists[index]);
+          },
+          childCount: userLists.length,
         ),
       ),
     );
   }
 
-  Widget userInfo() {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              'You have ${userLists.length} watchlist',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          watchlistBuilder()],
-      ),
-    );
-  }
-
-  Widget watchlistBuilder() {
-    return ListView.builder(
-        itemCount: userLists.length,
-        shrinkWrap: true,
-        physics: PageScrollPhysics(),
-        itemBuilder: (context, index) {
-          return watchListCard(userLists[index]);
-        });
+  Widget listEditingField() {
+    return TextField(controller: editingController, onEditingComplete: () {
+      setState(() {});
+    },);
   }
 
   Widget watchListCard(ListResponse list) {
@@ -100,9 +105,15 @@ class ProfileView extends ProfileViewModel {
                     ),
                   ),
                   InkWell(
-                    child: Icon(Icons.edit),
+                    child: Icon(isEditingText ? Icons.save : Icons.edit),
                     onTap: () {
-                      navigateToListEdit(list);
+                      if (!this.isEditingText) {
+                        this.isEditingText = true;
+                      }
+                      if (this.isEditingText) {
+                        this.isEditingText = false;
+                      }
+                      setState(() {});
                     },
                   )
                 ],

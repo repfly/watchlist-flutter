@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:watchlist/core/manager/cache_manager.dart';
 import 'package:watchlist/core/service/list/list_service.dart';
 import 'package:watchlist/core/service/list/model/list_response.dart';
 import 'package:watchlist/core/service/me/me_service.dart';
 import 'package:watchlist/core/service/me/model/me_response.dart';
-import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
-import 'package:watchlist/core/service/movie/movie_service.dart';
 import 'package:watchlist/modules/login/login.dart';
 import 'package:watchlist/modules/profile/profile.dart';
 import 'package:watchlist/modules/search/search_movie.dart';
 import 'package:watchlist/widgets/create_list/create_list.dart';
 import 'package:watchlist/widgets/edit_list/edit_list.dart';
-import 'package:watchlist/widgets/list_detail/list_detail.dart';
 
 abstract class ProfileViewModel extends State<Profile> with CacheManager {
   late MeResponse user =
       new MeResponse(email: "email", username: "username", userLists: []);
   late List<ListResponse> userLists = [];
+  late ScrollController hideButtonController = new ScrollController();
+  late TextEditingController editingController = new TextEditingController();
   bool pageLoading = true;
   bool isMoviesNull = true;
+  bool isWatchlistNull = true;
+  bool isEditingText = false;
+  bool isCreateButtonVisible = true;
 
   @override
   initState() {
@@ -27,9 +30,10 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
   }
 
   initProfilePage() async {
+    addListenerToScrollController();
     List<ListResponse> tempList = [];
     user = await MeService.shared.fetchUser();
-    if(user.userLists == null){
+    if (user.userLists == null) {
       userLists = tempList;
       setState(() {});
       return;
@@ -39,6 +43,28 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
     }
     userLists = tempList;
     setState(() {});
+  }
+
+  addListenerToScrollController() {
+    hideButtonController.addListener(() {
+      if (hideButtonController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (isCreateButtonVisible == true) {
+          setState(() {
+            isCreateButtonVisible = false;
+          });
+        }
+      } else {
+        if (hideButtonController.position.userScrollDirection ==
+            ScrollDirection.forward) {
+          if (isCreateButtonVisible == false) {
+            setState(() {
+              isCreateButtonVisible = true;
+            });
+          }
+        }
+      }
+    });
   }
 
   navigateToListDetail(ListResponse list) {
@@ -53,26 +79,9 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
 
   navigateToCreateList() {
     Navigator.of(context)
-        .pushReplacement(MaterialPageRoute(builder: (context) => CreateList()));
-  }
-  /*fetchMoviesFromList(ListResponse list) async {
-    List<MovieResponse> tempArr = [];
-
-    for (String movieId in list.movies) {
-      tempArr.add(await MovieService.shared.fetchMovieByIMDBId(movieId));
-    }
-    return tempArr;
+        .push(MaterialPageRoute(builder: (context) => CreateList()));
   }
 
-  getMovieTitles(List<MovieResponse> list) {
-    List<String> titleArray = [];
-    for (MovieResponse movie in list) {
-      titleArray.add(movie.title);
-    }
-    return titleArray.join(", ");
-  }
-
-    */
   logOut() async {
     await clearCache();
     Navigator.of(context).pushAndRemoveUntil(

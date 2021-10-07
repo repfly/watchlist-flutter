@@ -15,6 +15,7 @@ class CreateList extends StatelessWidget {
       controller: titleController,
       decoration: fieldDecoration("New title"),
     );
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
