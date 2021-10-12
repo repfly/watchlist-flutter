@@ -2,6 +2,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:watchlist/core/service/me/model/me_response.dart';
 
 class CacheManager {
+  Future<void> saveTheme(bool darkTheme) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(CacheManagerKey.DARK_THEME.toString(), darkTheme);
+  }
+
+  Future<bool?> getTheme() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(CacheManagerKey.DARK_THEME.toString());
+  }
   Future<bool> saveToken(String token) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(CacheManagerKey.TOKEN.toString(), token);
@@ -19,4 +28,4 @@ class CacheManager {
   }
 }
 
-enum CacheManagerKey { TOKEN }
+enum CacheManagerKey { DARK_THEME, TOKEN }

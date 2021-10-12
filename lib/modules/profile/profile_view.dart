@@ -32,6 +32,8 @@ class ProfileView extends ProfileViewModel {
         floatingActionButton: createListButton());
   }
 
+
+
   Widget userInfo() {
     return Text(
       'You have ${userLists.length} watchlist',
@@ -96,7 +98,7 @@ class ProfileView extends ProfileViewModel {
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'With ${list.movies?.length ?? "none"} movies',
+                            'With ${list.movies?.length ?? "no"} movies',
                             maxLines: 4,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -109,6 +111,7 @@ class ProfileView extends ProfileViewModel {
                     onTap: () {
                       if (!this.isEditingText) {
                         this.isEditingText = true;
+                        setState(() {});
                       }
                       if (this.isEditingText) {
                         this.isEditingText = false;

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class ErrorAlert {
   late final String alertMessage;
 
-  showError(context, bool isAlert, {required String message}) {
+  showSnack(context, bool isAlert, {required String message}) {
     showFlash(
         context: context,
         duration: Duration(seconds: 3),

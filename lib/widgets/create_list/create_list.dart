@@ -13,13 +13,12 @@ class CreateList extends StatelessWidget {
       autofocus: false,
       autocorrect: false,
       controller: titleController,
-      decoration: fieldDecoration("New title"),
+      decoration: fieldDecoration("List title"),
     );
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         title: Text("Create a list"),
       ),
       body: SafeArea(
@@ -30,20 +29,21 @@ class CreateList extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              titleField,
-              Spacer(),
-              Positioned(
-                  child: ElevatedButton(
-                onPressed: () async {
-                  await listCreate(context);
-                },
-                child: Text('Create list'),
-              ))
+              titleField
             ],
           ),
         ),
       ),
+      floatingActionButton:saveListButton(context),
     );
+  }
+
+  saveListButton(BuildContext context) {
+    return FloatingActionButton(
+      child: Icon(Icons.check),
+        onPressed: () async {
+          await listCreate(context);
+        });
   }
 
   fieldDecoration(String hintText) {
@@ -57,11 +57,11 @@ class CreateList extends StatelessWidget {
   listCreate(BuildContext context) async {
     if (titleController.text.isEmpty) {
       ErrorAlert()
-          .showError(context, true, message: "Please fill necessary fields");
+          .showSnack(context, true, message: "Please fill necessary fields");
       return;
     }
     await ListService.shared.createList(titleController.text);
-    ErrorAlert().showError(context, false, message: "Successfully created");
+    ErrorAlert().showSnack(context, false, message: "Successfully created");
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => Profile()));
   }

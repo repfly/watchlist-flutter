@@ -52,11 +52,9 @@ abstract class SearchMovieViewModel extends State<SearchMovie> {
   }
   Future<void> addMovieToList(ListResponse list, String imdbId) async {
     ListService.shared.addMovieToList(list.listId, imdbId);
-    ErrorAlert().showError(context, false,
+    ErrorAlert().showSnack(context, false,
         message: "Movie added to your list!");
-    setState(() {
-
-    });
+    setState(() {});
   }
 
   Future<void> navigateToMovieDetail(String imdbId) async {
@@ -67,7 +65,7 @@ abstract class SearchMovieViewModel extends State<SearchMovie> {
   }
 
   Future<String> getMovieDetail(String imdbId) async {
-    var movie  = await MovieService.shared.fetchMovieByIMDBId(imdbId);
+    var movie = await MovieService.shared.fetchMovieByIMDBId(imdbId);
     return movie.plot;
   }
 

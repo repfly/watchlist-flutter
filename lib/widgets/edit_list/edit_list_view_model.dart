@@ -16,16 +16,16 @@ abstract class EditListViewModel extends State<EditList> {
     if (titleController.text.isNotEmpty) {
      await ListService.shared.updateListTitleById(new UpdateListTitleRequest(
           newTitle: titleController.text, listId: listId));
-      ErrorAlert().showError(context, false, message: "Successfully updated");
+      ErrorAlert().showSnack(context, false, message: "Successfully updated");
       return;
     }
     ErrorAlert()
-        .showError(context, true, message: "Please fill necessary fields");
+        .showSnack(context, true, message: "Please fill necessary fields");
   }
 
   deleteList(String listId) async {
     await ListService.shared.deleteList(listId);
     Navigator.of(context).pop();
-    ErrorAlert().showError(context, false, message: "Successfully deleted");
+    ErrorAlert().showSnack(context, false, message: "Successfully deleted");
   }
 }

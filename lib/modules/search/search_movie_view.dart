@@ -13,7 +13,9 @@ class SearchMovieView extends SearchMovieViewModel {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
+      appBar: AppBar(title: Text(list.listTitle),),
       body: FloatingSearchBar(
           debounceDelay: Duration(milliseconds: 500),
           controller: searchBarController,

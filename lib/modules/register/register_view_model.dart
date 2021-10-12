@@ -33,7 +33,7 @@ abstract class RegisterViewModel extends State<Register> {
       setState(() {});
     }
     if (isCredentialsEmpty) {
-      ErrorAlert().showError(context, true,
+      ErrorAlert().showSnack(context, true,
           message: "Please fill the necessary fields.");
     }
   }
@@ -46,11 +46,11 @@ abstract class RegisterViewModel extends State<Register> {
     if (response.type == "success") {
       navigateToLogin();
       ErrorAlert()
-          .showError(context, false, message: "Successfully registered.");
+          .showSnack(context, false, message: "Successfully registered.");
     }
     if (response.type ==
         "username or email already exist") {
-      ErrorAlert().showError(context, true,
+      ErrorAlert().showSnack(context, true,
           message: "Email or username already exists.");
     }
   }

@@ -33,7 +33,7 @@ class MovieService extends IMovieService {
 
   @override
   Future<SearchResponse> searchMovieByTitle(String title) async {
-    var response = await _dio.get('$_path/search/$title');
+    var response = await _dio.get('$_path/?title=$title');
     if (response.statusCode != 200) {
       throw "We think something went wrong at search movie by title";
     }
