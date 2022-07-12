@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-RegisterResponse registerResponseFromJson(String str) => RegisterResponse.fromJson(json.decode(str));
+RegisterResponse registerResponseFromJson(String str) =>
+    RegisterResponse.fromJson(json.decode(str));
 
-String registerResponseToJson(RegisterResponse data) => json.encode(data.toJson());
+String registerResponseToJson(RegisterResponse data) =>
+    json.encode(data.toJson());
 
 class RegisterResponse {
   RegisterResponse({
@@ -17,15 +19,16 @@ class RegisterResponse {
   String type;
   User? user;
 
-  factory RegisterResponse.fromJson(Map<String, dynamic> json) => RegisterResponse(
-    type: json["type"] == null ? null : json["type"],
-    user: json["user"] == null ? null : User.fromJson(json["user"]),
-  );
+  factory RegisterResponse.fromJson(Map<String, dynamic> json) =>
+      RegisterResponse(
+        type: json["type"] == null ? null : json["type"],
+        user: json["user"] == null ? null : User.fromJson(json["user"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "type": type == null ? null : type,
-    "user": user == null ? null : user!.toJson(),
-  };
+        "type": type == null ? null : type,
+        "user": user == null ? null : user!.toJson(),
+      };
 }
 
 class User {
@@ -50,29 +53,26 @@ class User {
   DateTime updatedAt;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["id"] == null ? null : json["id"],
-    username: json["username"] == null ? null : json["username"],
-    password: json["password"] == null ? null : json["password"],
-    email: json["email"] == null ? null : json["email"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    createdAt: DateTime.parse(json["createdAt"]),
-    updatedAt: DateTime.parse(json["updatedAt"]),
-  );
+        id: json["id"] == null ? null : json["id"],
+        username: json["username"] == null ? null : json["username"],
+        password: json["password"] == null ? null : json["password"],
+        email: json["email"] == null ? null : json["email"],
+        firstName: json["firstName"],
+        lastName: json["lastName"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "username": username == null ? null : username,
-    "password": password == null ? null : password,
-    "email": email == null ? null : email,
-    "firstName": firstName,
-    "lastName": lastName,
-    "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
-    "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
-  };
+        "id": id == null ? null : id,
+        "username": username == null ? null : username,
+        "password": password == null ? null : password,
+        "email": email == null ? null : email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "createdAt": createdAt == null ? null : createdAt.toIso8601String(),
+        "updatedAt": updatedAt == null ? null : updatedAt.toIso8601String(),
+      };
 }
 
-enum RegisterResponseType {
-  SUCCESS,
-  EMAIL_OR_USERNAME_ALREADY_EXISTS
-}
+enum RegisterResponseType { SUCCESS, EMAIL_OR_USERNAME_ALREADY_EXISTS }

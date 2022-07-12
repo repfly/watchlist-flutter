@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/core/service/list/list_service.dart';
 import 'package:watchlist/modules/profile/profile.dart';
-import 'package:watchlist/widgets/alert/toast_alert.dart';
+
+import '../alert/toast_alert.dart';
+
 
 class CreateList extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();
@@ -34,13 +35,13 @@ class CreateList extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton:saveListButton(context),
+      floatingActionButton: saveListButton(context),
     );
   }
 
   saveListButton(BuildContext context) {
     return FloatingActionButton(
-      child: Icon(Icons.check),
+        child: Icon(Icons.check),
         onPressed: () async {
           await listCreate(context);
         });
@@ -56,12 +57,11 @@ class CreateList extends StatelessWidget {
 
   listCreate(BuildContext context) async {
     if (titleController.text.isEmpty) {
-      ErrorAlert()
-          .showSnack(context, true, message: "Please fill necessary fields");
+      CustomAlert.showToast("Please fill necessary fields", isAlert: true);
       return;
     }
     await ListService.shared.createList(titleController.text);
-    ErrorAlert().showSnack(context, false, message: "Successfully created");
+    CustomAlert.showToast("Successfully created");
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => Profile()));
   }

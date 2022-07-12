@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
-import 'package:watchlist/widgets/list_detail/list_detail_view_model.dart';
+
+import 'list_detail_view_model.dart';
 
 class ListDetailView extends ListDetailViewModel {
   ListDetailView(list) : super(list);

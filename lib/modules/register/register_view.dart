@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/modules/register/register_view_model.dart';
-import 'package:watchlist/widgets/alert/toast_alert.dart';
 
 class RegisterView extends RegisterViewModel {
   @override
@@ -38,34 +37,33 @@ class RegisterView extends RegisterViewModel {
       body: Container(
         padding: EdgeInsets.all(40.0),
         child: Form(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 100.0),
-              Text(
-                "Register",
-                style: TextStyle(fontSize: 40),
-              ),
-              SizedBox(height: 20.0),
-              emailField,
-              SizedBox(height: 20.0),
-              usernameField,
-              SizedBox(height: 15.0),
-              SizedBox(height: 10.0),
-              passwordField,
-              SizedBox(height: 15.0),
-              SizedBox(height: 10.0),
-              confirmPassword,
-              SizedBox(height: 20.0),
-              Container(
-                  alignment: Alignment.center,
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        navigateToHome();
-                        //await validateUserInfo();
-                      },
-                      child: Text("signup")))
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 100.0),
+                Text(
+                  "Register",
+                  style: TextStyle(fontSize: 40),
+                ),
+                SizedBox(height: 20.0),
+                emailField,
+                SizedBox(height: 20.0),
+                usernameField,
+                SizedBox(height: 25.0),
+                passwordField,
+                SizedBox(height: 25.0),
+                confirmPassword,
+                SizedBox(height: 20.0),
+                Container(
+                    alignment: Alignment.center,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          await validateUserInfo();
+                        },
+                        child: Text("signup")))
+              ],
+            ),
           ),
         ),
       ),

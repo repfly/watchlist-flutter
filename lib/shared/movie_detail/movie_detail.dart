@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
-import 'dart:ui';
 
 class MovieDetail extends StatelessWidget {
   final MovieResponse movie;
@@ -50,43 +49,26 @@ class MovieDetail extends StatelessWidget {
                             child: Text(
                           movie.title,
                           style: TextStyle(
-                            fontSize: 30.0,
-                          ),
+                              fontSize: 24.0, fontWeight: FontWeight.bold),
                         )),
-                        Text(
-                          movie.imdbRating,
-                          style: TextStyle(
-                            fontSize: 20.0,
+                        Chip(
+                          backgroundColor: Colors.amber,
+                          label: Text(
+                            movie.imdbRating,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         )
                       ],
                     ),
                   ),
-                  Text(movie.plot,
-                      style:
-                          TextStyle(color: Colors.white, fontFamily: 'Arvo')),
+                  Text(movie.plot, style: TextStyle(fontFamily: 'Arvo')),
                   Padding(padding: EdgeInsets.all(5.0)),
                   Row(
                     children: [Text("Genre: "), Text(movie.genre)],
                   ),
                   Padding(padding: EdgeInsets.all(10.0)),
-                  // Row(
-                  //   children: <Widget>[
-                  //     Expanded(
-                  //         child: Container(
-                  //       width: 150.0,
-                  //       height: 60.0,
-                  //       alignment: Alignment.center,
-                  //       child: Text(
-                  //         'Add to your list',
-                  //         style: TextStyle(color: Colors.black, fontSize: 20.0),
-                  //       ),
-                  //       decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(10.0),
-                  //           color: Colors.white54),
-                  //     )),
-                  //   ],
-                  // ),
                 ],
               ),
             ),

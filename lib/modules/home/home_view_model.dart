@@ -4,7 +4,8 @@ import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 import 'package:watchlist/modules/home/home.dart';
 import 'package:watchlist/modules/profile/profile.dart';
-import 'package:watchlist/widgets/movie_detail/movie_detail.dart';
+
+import '../../shared/movie_detail/movie_detail.dart';
 
 abstract class HomeViewModel extends State<Home> {
   var topPicksArray = [

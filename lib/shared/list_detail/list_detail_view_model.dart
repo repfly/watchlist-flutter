@@ -4,8 +4,9 @@ import 'package:watchlist/core/service/list/model/list_response.dart';
 import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 import 'package:watchlist/modules/search/search_movie.dart';
-import 'package:watchlist/widgets/list_detail/list_detail.dart';
-import 'package:watchlist/widgets/movie_detail/movie_detail.dart';
+
+import '../movie_detail/movie_detail.dart';
+import 'list_detail.dart';
 
 abstract class ListDetailViewModel extends State<ListDetail> {
   ListResponse list;

@@ -1,31 +1,54 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:watchlist/core/service/me/model/me_response.dart';
 
 class CacheManager {
-  Future<void> saveTheme(bool darkTheme) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(CacheManagerKey.DARK_THEME.toString(), darkTheme);
+  static late SharedPreferences _prefs;
+
+  /// Initializes the [_prefs] while app loads.
+  /// Make sure it is called before the widget tree renders.
+  static Future<void> ensureInitalized() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  Future<bool?> getTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(CacheManagerKey.DARK_THEME.toString());
-  }
-  Future<bool> saveToken(String token) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(CacheManagerKey.TOKEN.toString(), token);
-    return true;
+  /// Saves the given value with the key pair,
+  ///
+  ///   [key] (CacheKeys): The key to save the value under.
+  ///   [value] (dynamic): The value to be saved.
+  static Future<void> saveValue(CacheKeys key, dynamic value) async {
+    if (value is String) {
+      await _prefs.setString(key.name, value);
+    }
+    if (value is int) {
+      await _prefs.setInt(key.name, value);
+    }
+    if (value is bool) {
+      await _prefs.setBool(key.name, value);
+    }
   }
 
-  Future<String?> getToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(CacheManagerKey.TOKEN.toString());
+  /// Returns the value matches with the provided [key]
+  ///
+  /// Args:
+  ///   [key] (CacheKeys): The key of the value you want to retrieve.
+  static dynamic getValue(CacheKeys key) {
+    return _prefs.get(key.name);
   }
 
-  Future<void> clearCache() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    preferences.clear();
+  /// If the cache contains a value of given key, returns true.
+  ///
+  /// Args:
+  ///   [key] (CacheKeys): The key to check for.
+  static bool containsValue(CacheKeys key) {
+    return _prefs.containsKey(key.name);
+  }
+
+  /// It clears all the data from the cache.
+  static Future<void> clearAll() async {
+    await _prefs.clear();
   }
 }
 
-enum CacheManagerKey { DARK_THEME, TOKEN }
+enum CacheKeys {
+  USER,
+  TOKEN,
+  LOGGED_IN,
+}

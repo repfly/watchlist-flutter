@@ -5,9 +5,9 @@ import 'package:watchlist/core/service/list/model/list_response.dart';
 import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
 import 'package:watchlist/core/service/movie/model/SearchResponse.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
-import 'package:watchlist/widgets/alert/toast_alert.dart';
-import 'package:watchlist/widgets/movie_detail/movie_detail.dart';
 
+import '../../shared/alert/toast_alert.dart';
+import '../../shared/movie_detail/movie_detail.dart';
 import 'search_movie.dart';
 
 abstract class SearchMovieViewModel extends State<SearchMovie> {
@@ -31,7 +31,7 @@ abstract class SearchMovieViewModel extends State<SearchMovie> {
   Future<void> fetchMoviesFromList() async {
     List<MovieResponse> tempArr = [];
 
-    if(list.movies == null){
+    if (list.movies == null) {
       movies = tempArr;
       setState(() {});
       return;
@@ -50,10 +50,10 @@ abstract class SearchMovieViewModel extends State<SearchMovie> {
     }
     setState(() {});
   }
+
   Future<void> addMovieToList(ListResponse list, String imdbId) async {
     ListService.shared.addMovieToList(list.listId, imdbId);
-    ErrorAlert().showSnack(context, false,
-        message: "Movie added to your list!");
+    CustomAlert.showToast("Movie added to your list!");
     setState(() {});
   }
 
@@ -68,6 +68,4 @@ abstract class SearchMovieViewModel extends State<SearchMovie> {
     var movie = await MovieService.shared.fetchMovieByIMDBId(imdbId);
     return movie.plot;
   }
-
-
 }

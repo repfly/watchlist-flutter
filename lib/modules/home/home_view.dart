@@ -11,9 +11,9 @@ class HomeView extends HomeViewModel {
       appBar: AppBar(
         title: Text("Watchlist"),
         actions: [
-          InkWell(
-            child: Icon(CupertinoIcons.profile_circled),
-            onTap: () {
+          IconButton(
+            icon: Icon(CupertinoIcons.profile_circled),
+            onPressed: () {
               navigateToProfile();
             },
           ),
@@ -68,49 +68,34 @@ class HomeView extends HomeViewModel {
       onTap: () {
         navigateToMovieDetail(movie);
       },
-      child: Card(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 8),
+        child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            clipBehavior: Clip.hardEdge,
             child: Container(
+              height: 100,
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 90,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(movie.poster),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(movie.imdbRating)
-                      ],
-                    ),
-                  ),
+                  Image.network(movie.poster),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: EdgeInsets.all(8),
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             movie.title,
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                            movie.plot,
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
+                          Flexible(
+                            child: Text(
+                              movie.plot,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           Row(
                             children: [
@@ -127,8 +112,8 @@ class HomeView extends HomeViewModel {
                   ),
                 ],
               ),
-            ),
-          )),
+            )),
+      ),
     );
   }
 }

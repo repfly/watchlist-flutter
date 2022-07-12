@@ -1,17 +1,19 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:watchlist/core/manager/cache_manager.dart';
-import 'package:watchlist/core/service/list/list_service.dart';
-import 'package:watchlist/core/service/list/model/list_response.dart';
-import 'package:watchlist/core/service/me/me_service.dart';
-import 'package:watchlist/core/service/me/model/me_response.dart';
-import 'package:watchlist/modules/login/login.dart';
-import 'package:watchlist/modules/profile/profile.dart';
-import 'package:watchlist/modules/search/search_movie.dart';
-import 'package:watchlist/widgets/create_list/create_list.dart';
-import 'package:watchlist/widgets/edit_list/edit_list.dart';
 
-abstract class ProfileViewModel extends State<Profile> with CacheManager {
+import '../../core/manager/cache_manager.dart';
+import '../../core/service/list/list_service.dart';
+import '../../core/service/list/model/list_response.dart';
+import '../../core/service/me/me_service.dart';
+import '../../core/service/me/model/me_response.dart';
+import '../../shared/create_list/create_list.dart';
+import '../../shared/edit_list/edit_list.dart';
+import '../login/login.dart';
+import '../search/search_movie.dart';
+import 'profile.dart';
+
+abstract class ProfileViewModel extends State<Profile> {
   late MeResponse user =
       new MeResponse(email: "email", username: "username", userLists: []);
   late List<ListResponse> userLists = [];
@@ -83,7 +85,7 @@ abstract class ProfileViewModel extends State<Profile> with CacheManager {
   }
 
   logOut() async {
-    await clearCache();
+    await CacheManager.clearAll();
     Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => Login()),
         (Route<dynamic> route) => false);

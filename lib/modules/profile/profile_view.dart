@@ -15,14 +15,11 @@ class ProfileView extends ProfileViewModel {
               title:
                   Text('There are ${user.userLists!.length.toString()} lists'),
               actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: InkWell(
-                    child: Icon(Icons.logout_rounded),
-                    onTap: () {
-                      logOut();
-                    },
-                  ),
+                IconButton(
+                  icon: Icon(Icons.logout_rounded),
+                  onPressed: () {
+                    logOut();
+                  },
                 ),
               ],
             ),
@@ -31,8 +28,6 @@ class ProfileView extends ProfileViewModel {
         ),
         floatingActionButton: createListButton());
   }
-
-
 
   Widget userInfo() {
     return Text(
@@ -69,9 +64,12 @@ class ProfileView extends ProfileViewModel {
   }
 
   Widget listEditingField() {
-    return TextField(controller: editingController, onEditingComplete: () {
-      setState(() {});
-    },);
+    return TextField(
+      controller: editingController,
+      onEditingComplete: () {
+        setState(() {});
+      },
+    );
   }
 
   Widget watchListCard(ListResponse list) {

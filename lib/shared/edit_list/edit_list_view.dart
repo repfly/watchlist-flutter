@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watchlist/core/service/list/model/list_response.dart';
-import 'package:watchlist/widgets/edit_list/edit_list_view_model.dart';
+
+import 'edit_list_view_model.dart';
 
 class EditListView extends EditListViewModel {
   late final ListResponse list;

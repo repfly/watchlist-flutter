@@ -4,7 +4,8 @@ import 'package:watchlist/core/service/auth/model/register_request.dart';
 import 'package:watchlist/modules/home/home.dart';
 import 'package:watchlist/modules/login/login.dart';
 import 'package:watchlist/modules/register/register.dart';
-import 'package:watchlist/widgets/alert/toast_alert.dart';
+
+import '../../shared/alert/toast_alert.dart';
 
 abstract class RegisterViewModel extends State<Register> {
   late bool isCredentialsEmpty = true;
@@ -33,8 +34,7 @@ abstract class RegisterViewModel extends State<Register> {
       setState(() {});
     }
     if (isCredentialsEmpty) {
-      ErrorAlert().showSnack(context, true,
-          message: "Please fill the necessary fields.");
+      CustomAlert.showToast("Please fill the necessary fields.", isAlert: true);
     }
   }
 
@@ -45,13 +45,9 @@ abstract class RegisterViewModel extends State<Register> {
         email: emailController.text));
     if (response.type == "success") {
       navigateToLogin();
-      ErrorAlert()
-          .showSnack(context, false, message: "Successfully registered.");
-    }
-    if (response.type ==
-        "username or email already exist") {
-      ErrorAlert().showSnack(context, true,
-          message: "Email or username already exists.");
+      CustomAlert.showToast("Successfully registered.");
+    } else {
+      CustomAlert.showToast(response.type, isAlert: true);
     }
   }
 }

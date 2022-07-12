@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:watchlist/core/manager/cache_manager.dart';
 import 'package:watchlist/core/manager/network_manager.dart';
 import 'package:watchlist/core/service/auth/model/login_request.dart';
 import 'package:watchlist/core/service/auth/model/login_response.dart';
@@ -7,7 +8,7 @@ import 'package:watchlist/core/service/auth/model/register_request.dart';
 import 'model/register_response.dart';
 
 abstract class IAuthService {
-  final String _path = "/auth";
+  final String _path = "/authenticate";
   final Dio _dio = NetworkManager.instance.dio;
 
   Future<RegisterResponse> registerUser(RegisterRequest user);
@@ -34,10 +35,12 @@ class AuthService extends IAuthService {
 
   @override
   Future<LoginResponse> loginUser(LoginRequest user) async {
-    var response = await _dio.post('$_path/login', data: loginRequestToJson(user));
-    if(response.statusCode != 200) {
-      throw "There has been a problem with communicating server";
+    var response = await _dio
+        .post('$_path/login', data: loginRequestToJson(user))
+        .then((value) => LoginResponse.fromJson(value.data));
+    if (response.token != null) {
+      CacheManager.saveValue(CacheKeys.TOKEN, response.token);
     }
-    return LoginResponse.fromJson(response.data);
+    return response;
   }
 }
