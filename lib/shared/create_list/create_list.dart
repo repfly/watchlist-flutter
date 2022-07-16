@@ -4,19 +4,11 @@ import 'package:watchlist/modules/profile/profile.dart';
 
 import '../alert/toast_alert.dart';
 
-
 class CreateList extends StatelessWidget {
   final TextEditingController titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final titleField = TextFormField(
-      autofocus: false,
-      autocorrect: false,
-      controller: titleController,
-      decoration: fieldDecoration("List title"),
-    );
-
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -30,7 +22,12 @@ class CreateList extends StatelessWidget {
               SizedBox(
                 height: 50,
               ),
-              titleField
+              TextFormField(
+                autofocus: false,
+                autocorrect: false,
+                controller: titleController,
+                decoration: fieldDecoration("List title"),
+              )
             ],
           ),
         ),

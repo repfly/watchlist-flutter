@@ -5,7 +5,6 @@ import 'login_view_model.dart';
 
 class LoginView extends LoginViewModel {
   final EdgeInsets paddingLow = EdgeInsets.all(8.0);
-  final GlobalKey<FormState> formKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -19,62 +18,60 @@ class LoginView extends LoginViewModel {
             child: buildWrapFormBody(),
           ),
         ),
-      ),    );
-  }
-
-  Wrap buildWrapFormBody() {
-    return Wrap(
-      runSpacing: 10,
-      alignment: WrapAlignment.end,
-      children: [
-        TextFormField(
-            controller: controllerUsername,
-            decoration: InputDecoration(
-                labelText: 'Username', border: OutlineInputBorder())),
-        TextFormField(
-            controller: controllerPassword,
-            obscureText: true,
-            enableSuggestions: false,
-            autocorrect: false,
-            decoration: InputDecoration(
-                labelText: 'Password', border: OutlineInputBorder())),
-        Padding(
-          padding: const EdgeInsets.only(right: 100),
-          child: RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                text: 'Do not have an account? ',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-              TextSpan(
-                  text: 'Register',
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                    navigateToRegister();
-                    }),
-            ]),
-          ),
-        ),
-
-        Visibility(
-          child: Text('wrong credentials'),
-          visible: wrongCredentials,
-        ),
-        ElevatedButton(
-          onPressed: () {
-            if (formKey.currentState?.validate() ?? false) {
-              fetchLogin(controllerUsername.text, controllerPassword.text);
-            }
-          },
-          child: Text('Login'),
-        ),
-      ],
+      ),
     );
   }
 
+  Widget buildWrapFormBody() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextFormField(
+              controller: controllerUsername,
+              validator: validateName,
+              decoration: InputDecoration(labelText: 'Username')),
+          TextFormField(
+              controller: controllerPassword,
+              obscureText: true,
+              enableSuggestions: false,
+              validator: validatePassword,
+              autocorrect: false,
+              decoration: InputDecoration(
+                labelText: 'Password',
+              )),
+          ElevatedButton(
+            onPressed: () {
+              handleSubmitted();
+            },
+            child: Text('Login'),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: RichText(
+              text: TextSpan(children: [
+                TextSpan(
+                  text: 'Do not have an account? ',
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                TextSpan(
+                    text: 'Register',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        navigateToRegister();
+                      }),
+              ]),
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:watchlist/shared/cards/movie_description_card.dart';
 
 import 'home_view_model.dart';
 
@@ -40,7 +41,7 @@ class HomeView extends HomeViewModel {
                       physics: PageScrollPhysics(),
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        return topPicksCard(movies[index]);
+                        return MovieDescriptionCard(movie: movies[index]);
                       })
                 ],
               ),
@@ -51,69 +52,7 @@ class HomeView extends HomeViewModel {
 
   Widget loadingView() {
     return Center(
-      child: Column(
-        children: [
-          CircularProgressIndicator(),
-          Text(
-            "Loading...",
-            style: TextStyle(fontSize: 30),
-          )
-        ],
-      ),
-    );
-  }
-
-  InkWell topPicksCard(MovieResponse movie) {
-    return InkWell(
-      onTap: () {
-        navigateToMovieDetail(movie);
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-            clipBehavior: Clip.hardEdge,
-            child: Container(
-              height: 100,
-              child: Row(
-                children: [
-                  Image.network(movie.poster),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            movie.title,
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Flexible(
-                            child: Text(
-                              movie.plot,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "Release year: ",
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                              Text(movie.year),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )),
-      ),
-    );
+        child: LoadingAnimationWidget.waveDots(
+            color: Theme.of(context).primaryColor, size: 36));
   }
 }

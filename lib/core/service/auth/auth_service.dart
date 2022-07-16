@@ -9,7 +9,7 @@ import 'model/register_response.dart';
 
 abstract class IAuthService {
   final String _path = "/authenticate";
-  final Dio _dio = NetworkManager.instance.dio;
+  final Dio _dio = NetworkManager.dio;
 
   Future<RegisterResponse> registerUser(RegisterRequest user);
 

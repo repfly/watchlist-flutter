@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
+import 'package:watchlist/core/service/movie/model/movie_response.dart';
 
 class MovieDetail extends StatelessWidget {
   final MovieResponse movie;
@@ -12,11 +12,9 @@ class MovieDetail extends StatelessWidget {
       body: Stack(fit: StackFit.expand, children: [
         Scaffold(
           appBar: AppBar(
-            leading: BackButton(),
             backgroundColor: Colors.transparent,
             elevation: 0.0,
           ),
-          extendBodyBehindAppBar: true,
           body: SingleChildScrollView(
             child: Container(
               margin: EdgeInsets.all(20.0),

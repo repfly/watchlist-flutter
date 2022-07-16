@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
+import 'package:watchlist/core/service/movie/model/movie_response.dart';
 
 import 'list_detail_view_model.dart';
 
@@ -13,11 +13,15 @@ class ListDetailView extends ListDetailViewModel {
       appBar: AppBar(
         title: Text(list.listTitle),
         actions: [
-          InkWell(child: Icon(CupertinoIcons.add),
-          onTap: () {
-            navigateToAddMovie();
-          },),
-          SizedBox(width: 10,)
+          InkWell(
+            child: Icon(CupertinoIcons.add),
+            onTap: () {
+              navigateToAddMovie();
+            },
+          ),
+          SizedBox(
+            width: 10,
+          )
         ],
       ),
       body: movieListBuilder(),

@@ -5,7 +5,7 @@ import 'package:watchlist/core/service/list/model/request/update_list_title_requ
 
 abstract class IListService {
   final String _path = "/watchlist";
-  final Dio _dio = NetworkManager.instance.dio;
+  final Dio _dio = NetworkManager.dio;
 
   Future<void> createList(String title);
   Future<ListResponse> fetchListById(String listId);
@@ -21,51 +21,31 @@ class ListService extends IListService {
 
   @override
   Future<void> createList(String title) async {
-    var data = {"title": title};
-    var response = await _dio.post(_path, data: data);
-    if (response.statusCode != 200) {
-      throw 'Error creating list';
-    }
+    await _dio.post(_path, data: {"title": title});
   }
 
   @override
   Future<ListResponse> fetchListById(String listId) async {
-    var response = await _dio.get('$_path/$listId');
-    if (response.statusCode != 200) {
-      throw 'Error fetching list by id';
-    }
-    return ListResponse.fromJson(response.data);
+    return await _dio
+        .get('$_path/$listId')
+        .then((value) => ListResponse.fromJson(value.data));
   }
 
   @override
   Future<void> updateListTitleById(UpdateListTitleRequest request) async {
-    var response = await _dio.patch('$_path/title',
+    await _dio.patch('$_path/title',
         data: updateListTitleRequestToJson(request));
-    if (response.statusCode != 200) {
-      throw "Update list id error";
-    }
   }
 
   @override
   Future<void> deleteList(String listId) async {
-    var response = await _dio.delete(
-      '$_path/$listId',
-    );
-    if (response.statusCode != 200) {
-      throw "Delete list error";
-    }
+    await _dio.delete('$_path/$listId');
   }
 
   @override
   Future<void> addMovieToList(String listId, String imdbId) async {
     var data = {"listId": listId, "imdbId": imdbId};
 
-    var response = await _dio.post(
-      '$_path/add/movie',
-      data: data,
-    );
-    if (response.statusCode != 200) {
-      throw "Add movie to list error";
-    }
+    await _dio.post('$_path/add/movie', data: data);
   }
 }

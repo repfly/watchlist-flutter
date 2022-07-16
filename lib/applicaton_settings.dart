@@ -5,8 +5,4 @@ abstract class ApplicationSettings extends CacheManager {
 
   late bool isDarkTheme = false;
 
-  @override
-  initState() {
-
-  }
 }

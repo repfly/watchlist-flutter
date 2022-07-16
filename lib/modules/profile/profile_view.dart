@@ -8,7 +8,7 @@ class ProfileView extends ProfileViewModel {
     return Scaffold(
         extendBodyBehindAppBar: true,
         body: CustomScrollView(
-          controller: hideButtonController,
+          controller: bodyScrollController,
           shrinkWrap: true,
           slivers: [
             new SliverAppBar(
@@ -38,7 +38,6 @@ class ProfileView extends ProfileViewModel {
 
   Visibility createListButton() {
     return Visibility(
-      visible: isCreateButtonVisible,
       child: new FloatingActionButton(
         onPressed: () {
           navigateToCreateList();
@@ -63,15 +62,6 @@ class ProfileView extends ProfileViewModel {
     );
   }
 
-  Widget listEditingField() {
-    return TextField(
-      controller: editingController,
-      onEditingComplete: () {
-        setState(() {});
-      },
-    );
-  }
-
   Widget watchListCard(ListResponse list) {
     return InkWell(
       onTap: () {
@@ -79,46 +69,31 @@ class ProfileView extends ProfileViewModel {
       },
       child: Card(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            list.listTitle,
-                            style: TextStyle(
-                                fontSize: 17, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'With ${list.movies?.length ?? "no"} movies',
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+          child: Container(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        list.listTitle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  ),
-                  InkWell(
-                    child: Icon(isEditingText ? Icons.save : Icons.edit),
-                    onTap: () {
-                      if (!this.isEditingText) {
-                        this.isEditingText = true;
-                        setState(() {});
-                      }
-                      if (this.isEditingText) {
-                        this.isEditingText = false;
-                      }
-                      setState(() {});
-                    },
-                  )
-                ],
-              ),
+                    Chip(label: Text(userLists.length.toString()))
+                  ],
+                ),
+                // Row(children: [ListView.builder(
+                //   itemCount: 3,
+                //   itemBuilder: (BuildContext context, int index) {
+                //     return Container(height: 80, child: Image.network(list.),);
+                //   },
+                // ),],),
+              ],
             ),
           )),
     );

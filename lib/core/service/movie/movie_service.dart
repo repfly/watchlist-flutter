@@ -1,17 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:watchlist/core/manager/network_manager.dart';
-import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
-import 'package:watchlist/core/service/movie/model/SearchResponse.dart';
+import 'package:watchlist/core/service/movie/model/movie_response.dart';
+import 'package:watchlist/core/service/movie/model/search_response.dart';
+import 'package:watchlist/core/service/movie/model/trending_response.dart';
 
 abstract class IMovieService {
   final String _path = "/movie";
-  final Dio _dio = NetworkManager.instance.dio;
+  final Dio _dio = NetworkManager.dio;
 
   Future<MovieResponse> fetchMovieByIMDBId(String imdbId);
 
   Future<SearchResponse> searchMovieByTitle(String title);
 
   Future<MovieResponse> fetchMovieByTitle(String title);
+
+  Future<void> fetchTrendings({int pageNumber = 1, String timeWindow = 'day'});
 
   IMovieService();
 }
@@ -48,5 +51,14 @@ class MovieService extends IMovieService {
       throw "error at get movie by title";
     }
     return MovieResponse.fromJson(response.data);
+  }
+
+  @override
+  Future<void> fetchTrendings(
+      {int pageNumber = 1, String timeWindow = 'day'}) async {
+    var response = await _dio.get('$_path/trendings/$timeWindow',
+        queryParameters: {
+          'timeInterval': timeWindow
+        }).then((value) => TrendingsResponse.fromJson(value.data));
   }
 }

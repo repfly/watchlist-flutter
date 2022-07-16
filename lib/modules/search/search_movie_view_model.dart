@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:watchlist/core/service/list/list_service.dart';
 import 'package:watchlist/core/service/list/model/list_response.dart';
-import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
-import 'package:watchlist/core/service/movie/model/SearchResponse.dart';
+import 'package:watchlist/core/service/movie/model/movie_response.dart';
+import 'package:watchlist/core/service/movie/model/search_response.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 
 import '../../shared/alert/toast_alert.dart';
@@ -67,5 +67,11 @@ abstract class SearchMovieViewModel extends State<SearchMovie> {
   Future<String> getMovieDetail(String imdbId) async {
     var movie = await MovieService.shared.fetchMovieByIMDBId(imdbId);
     return movie.plot;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    searchBarController.dispose();
   }
 }

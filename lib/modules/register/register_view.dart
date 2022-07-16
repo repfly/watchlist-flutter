@@ -7,12 +7,14 @@ class RegisterView extends RegisterViewModel {
     final emailField = TextFormField(
       autofocus: false,
       controller: emailController,
+      validator: validateAdress,
       decoration: fieldDecoration("Email", Icons.email_outlined),
     );
 
     final usernameField = TextFormField(
       autofocus: false,
       controller: usernameController,
+      validator: validateName,
       decoration: fieldDecoration("Username", Icons.person),
     );
 
@@ -20,6 +22,7 @@ class RegisterView extends RegisterViewModel {
       autofocus: false,
       obscureText: true,
       controller: passwordController,
+      validator: validatePassword,
       decoration: fieldDecoration("Password", Icons.lock),
     );
 
@@ -27,6 +30,7 @@ class RegisterView extends RegisterViewModel {
       autofocus: false,
       obscureText: true,
       controller: checkPasswordController,
+      validator: checkPasswordMatch,
       decoration: fieldDecoration("Confirm password", Icons.lock),
     );
 
@@ -37,6 +41,7 @@ class RegisterView extends RegisterViewModel {
       body: Container(
         padding: EdgeInsets.all(40.0),
         child: Form(
+          key: formKey,
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,10 +63,7 @@ class RegisterView extends RegisterViewModel {
                 Container(
                     alignment: Alignment.center,
                     child: ElevatedButton(
-                        onPressed: () async {
-                          await validateUserInfo();
-                        },
-                        child: Text("signup")))
+                        onPressed: handleSubmitted, child: Text("signup")))
               ],
             ),
           ),

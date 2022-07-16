@@ -1,18 +1,17 @@
-import 'package:flutter/cupertino.dart';
+import 'package:watchlist/core/service/me/me_service.dart';
 
 import 'cache_manager.dart';
 
 class AuthenticationManager {
   bool isLoggedIn = false;
-  BuildContext context;
-  AuthenticationManager({required this.context}) {
-    fetchUserLogin();
+
+  AuthenticationManager() {
+    autoLoginUser();
   }
 
-  Future<void> fetchUserLogin() async {
-    final token = await CacheManager.getValue(CacheKeys.TOKEN);
-    if (token != null) {
-      isLoggedIn = true;
-    }
+  Future<void> autoLoginUser() async {
+    await CacheManager.getValue(CacheKeys.TOKEN);
+    await MeService.shared.fetchUser();
+   
   }
 }

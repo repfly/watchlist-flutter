@@ -4,7 +4,7 @@ import 'package:watchlist/core/service/me/model/me_response.dart';
 
 abstract class IMeService {
   final String _path = "/me";
-  final Dio _dio = NetworkManager.instance.dio;
+  final Dio _dio = NetworkManager.dio;
 
   Future<MeResponse> fetchUser();
 }
@@ -17,6 +17,6 @@ class MeService extends IMeService {
   Future<MeResponse> fetchUser() async {
     return await _dio
         .get(_path)
-        .then((value) => meResponseFromJson(value.data));
+        .then((value) => MeResponse.fromJson(value.data));
   }
 }

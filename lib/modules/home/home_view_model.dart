@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:watchlist/core/service/movie/model/MovieResponse.dart';
+import 'package:watchlist/core/service/movie/model/movie_response.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 import 'package:watchlist/modules/home/home.dart';
 import 'package:watchlist/modules/profile/profile.dart';
@@ -34,6 +33,7 @@ abstract class HomeViewModel extends State<Home> {
   }
 
   Future<void> fetchTopPicks() async {
+    MovieService.shared.fetchTrendings();
     List<MovieResponse> result = [];
     for (var movieID in topPicksArray) {
       result.add(await MovieService.shared.fetchMovieByIMDBId(movieID));
@@ -47,5 +47,4 @@ abstract class HomeViewModel extends State<Home> {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => MovieDetail(movie)));
   }
-
 }
