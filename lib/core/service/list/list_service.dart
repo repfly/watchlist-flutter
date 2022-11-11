@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:watchlist/core/manager/network_manager.dart';
+import 'package:watchlist/core/manager/network/network_manager.dart';
 import 'package:watchlist/core/service/list/model/list_response.dart';
 import 'package:watchlist/core/service/list/model/request/update_list_title_request.dart';
 

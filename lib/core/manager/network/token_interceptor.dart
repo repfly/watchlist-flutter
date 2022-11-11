@@ -2,11 +2,10 @@
 import 'package:dio/dio.dart';
 
 // Project imports:
-import 'cache_manager.dart';
+import '../cache_manager.dart';
 
 ///
 class TokenInterceptor extends Interceptor {
-
   @override
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {

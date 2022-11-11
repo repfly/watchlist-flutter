@@ -18,13 +18,13 @@ class TrendingsResponse {
     });
 
     final int page;
-    final List<Result> results;
+    final List<TrendingMovie> results;
     final int totalPages;
     final int totalResults;
 
     factory TrendingsResponse.fromJson(Map<String, dynamic> json) => TrendingsResponse(
         page: json["page"],
-        results: List<Result>.from(json["results"].map((x) => Result.fromJson(x))),
+        results: List<TrendingMovie>.from(json["results"].map((x) => TrendingMovie.fromJson(x))),
         totalPages: json["total_pages"],
         totalResults: json["total_results"],
     );
@@ -37,8 +37,8 @@ class TrendingsResponse {
     };
 }
 
-class Result {
-    Result({
+class TrendingMovie {
+    TrendingMovie({
         required this.backdropPath,
         required this.id,
         required this.title,
@@ -62,7 +62,7 @@ class Result {
     final double voteAverage;
     final int voteCount;
 
-    factory Result.fromJson(Map<String, dynamic> json) => Result(
+    factory TrendingMovie.fromJson(Map<String, dynamic> json) => TrendingMovie(
         backdropPath: json["backdrop_path"],
         id: json["id"],
         title: json["title"],

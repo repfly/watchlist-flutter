@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:watchlist/core/manager/network_manager.dart';
+import 'package:watchlist/core/manager/network/network_manager.dart';
 import 'package:watchlist/core/service/me/model/me_response.dart';
 
 abstract class IMeService {

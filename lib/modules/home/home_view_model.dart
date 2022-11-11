@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:watchlist/core/service/movie/model/movie_response.dart';
+import 'package:watchlist/core/service/movie/model/trending_response.dart';
 import 'package:watchlist/core/service/movie/movie_service.dart';
 import 'package:watchlist/modules/home/home.dart';
 import 'package:watchlist/modules/profile/profile.dart';
@@ -7,24 +9,15 @@ import 'package:watchlist/modules/profile/profile.dart';
 import '../../shared/movie_detail/movie_detail.dart';
 
 abstract class HomeViewModel extends State<Home> {
-  var topPicksArray = [
-    "tt4154796",
-    "tt1483013",
-    "tt0325980",
-    "tt0080684",
-    "tt0816692",
-    "tt1631867",
-    "tt4633694",
-    "tt2250912",
-    "tt0133093"
-  ];
-  late List<MovieResponse> movies = [];
-  bool pageLoaded = false;
+  final PagingController<int, TrendingMovie> pagingController =
+      PagingController(firstPageKey: 1);
 
   @override
   void initState() {
     super.initState();
-    fetchTopPicks();
+    pagingController.addPageRequestListener((pageKey) {
+      _fetchPage(pageKey);
+    });
   }
 
   navigateToProfile() {
@@ -32,15 +25,20 @@ abstract class HomeViewModel extends State<Home> {
         .push(MaterialPageRoute(builder: (context) => Profile()));
   }
 
-  Future<void> fetchTopPicks() async {
-    MovieService.shared.fetchTrendings();
-    List<MovieResponse> result = [];
-    for (var movieID in topPicksArray) {
-      result.add(await MovieService.shared.fetchMovieByIMDBId(movieID));
+  Future<void> _fetchPage(int pageKey) async {
+    try {
+      final trendingResponse = await MovieService.shared
+          .fetchTrendings(pageNumber: pageKey, timeWindow: 'day');
+      var newItems = trendingResponse.results;
+      if (trendingResponse.totalPages == pageKey) {
+        pagingController.appendLastPage(newItems);
+      } else {
+        final nextPageKey = pageKey + 1;
+        pagingController.appendPage(newItems, nextPageKey);
+      }
+    } catch (error) {
+      pagingController.error = error;
     }
-    movies.addAll(result);
-    pageLoaded = true;
-    setState(() {});
   }
 
   navigateToMovieDetail(MovieResponse movie) {

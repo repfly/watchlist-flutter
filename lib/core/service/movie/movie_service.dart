@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:watchlist/core/manager/network_manager.dart';
+import 'package:watchlist/core/manager/network/network_manager.dart';
 import 'package:watchlist/core/service/movie/model/movie_response.dart';
 import 'package:watchlist/core/service/movie/model/search_response.dart';
 import 'package:watchlist/core/service/movie/model/trending_response.dart';
@@ -14,7 +14,8 @@ abstract class IMovieService {
 
   Future<MovieResponse> fetchMovieByTitle(String title);
 
-  Future<void> fetchTrendings({int pageNumber = 1, String timeWindow = 'day'});
+  Future<TrendingsResponse> fetchTrendings(
+      {int pageNumber = 1, String timeWindow = 'day'});
 
   IMovieService();
 }
@@ -54,11 +55,11 @@ class MovieService extends IMovieService {
   }
 
   @override
-  Future<void> fetchTrendings(
+  Future<TrendingsResponse> fetchTrendings(
       {int pageNumber = 1, String timeWindow = 'day'}) async {
-    var response = await _dio.get('$_path/trendings/$timeWindow',
-        queryParameters: {
-          'timeInterval': timeWindow
-        }).then((value) => TrendingsResponse.fromJson(value.data));
+    return await _dio.get('$_path/trendings/$timeWindow', queryParameters: {
+      'timeInterval': timeWindow,
+      'page': pageNumber
+    }).then((value) => TrendingsResponse.fromJson(value.data));
   }
 }

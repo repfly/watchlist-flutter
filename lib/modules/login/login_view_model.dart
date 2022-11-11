@@ -50,10 +50,7 @@ abstract class LoginViewModel extends State<Login> {
     if (value == null || value.isEmpty) {
       return 'Can not be null';
     }
-    final emailExp = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    if (!emailExp.hasMatch(value)) {
-      return 'lutfen gecerli bir mail adresi girin';
-    }
+
     return null;
   }
     String? validateName(String? value) {

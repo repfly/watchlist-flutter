@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:watchlist/core/manager/cache_manager.dart';
-import 'package:watchlist/core/manager/network_manager.dart';
+import 'package:watchlist/core/manager/network/network_manager.dart';
 import 'package:watchlist/core/service/auth/model/login_request.dart';
 import 'package:watchlist/core/service/auth/model/login_response.dart';
 import 'package:watchlist/core/service/auth/model/register_request.dart';

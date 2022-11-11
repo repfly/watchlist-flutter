@@ -81,7 +81,7 @@ abstract class RegisterViewModel extends State<Register> {
     if (value == null || value.isEmpty) {
       return 'Boş bırakılamaz';
     }
-    if (value.length < 20) {
+    if (value.length < 4) {
       return 'Lütfen geçerli bir adres adresi girin';
     }
     return null;

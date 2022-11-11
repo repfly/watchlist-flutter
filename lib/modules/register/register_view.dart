@@ -7,7 +7,7 @@ class RegisterView extends RegisterViewModel {
     final emailField = TextFormField(
       autofocus: false,
       controller: emailController,
-      validator: validateAdress,
+      validator: validateEmail,
       decoration: fieldDecoration("Email", Icons.email_outlined),
     );
 

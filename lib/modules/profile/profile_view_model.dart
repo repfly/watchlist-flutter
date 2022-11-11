@@ -6,7 +6,6 @@ import '../../core/service/list/model/list_response.dart';
 import '../../core/service/me/me_service.dart';
 import '../../core/service/me/model/me_response.dart';
 import '../../shared/create_list/create_list.dart';
-import '../../shared/edit_list/edit_list.dart';
 import '../login/login.dart';
 import '../search/search_movie.dart';
 import 'profile.dart';

@@ -70,9 +70,7 @@ class SearchMovieView extends SearchMovieViewModel {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 5,
-                        ),
+                        SizedBox(height: 5),
                         Text(movie.imdbRating)
                       ],
                     ),
